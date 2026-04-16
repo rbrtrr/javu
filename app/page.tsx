@@ -261,8 +261,8 @@ export default function HomePage() {
           <p className={`${styles.quoteText} ${styles.revealText}`} data-reveal>
             “EN JAVU QUEREMOS CREAR UN ESPACIO QUE SE SIENTA NATURAL, CÁLIDO Y
             ABIERTO PARA TODOS. UN LUGAR DONDE PUEDAS VENIR POR UN CAFÉ RÁPIDO,
-            QUEDARTE A BRUNCHEAR CON CALMA O SIMPLEMENTE DISFRUTAR EL AMBIENTE,
-            LA COMIDA Y LA IDENTIDAD DE LA MARCA.”
+            QUEDARTE A PLATICAR CON CALMA O SIMPLEMENTE DISFRUTAR EL AMBIENTE,
+            LA CAFÉ Y LA IDENTIDAD DE NOSOTROS.”
           </p>
 
           <span

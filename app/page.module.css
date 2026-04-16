@@ -231,7 +231,7 @@
 
 .spotSection {
   background: #fec015;
-  min-height: 780px;
+  min-height: 640px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,7 +249,7 @@
 
 .spotLogo {
   display: block;
-  width: min(520px, 42vw);
+  width: min(400px, 42vw);
   height: auto;
   object-fit: contain;
   opacity: 0.98;
