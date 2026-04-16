@@ -1,66 +1,435 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { Inter, Sora } from "next/font/google";
 import styles from "./page.module.css";
 
-export default function Home() {
+const navFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-nav",
+});
+
+const displayFont = Sora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display",
+});
+
+const MAP_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.1167615412123!2d-115.4494079!3d32.6442291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d7714fb22b267f%3A0x99cd790acb4f3da8!2sJAV%C3%9A%20Coffee!5e1!3m2!1ses-419!2smx!4v1776139398134!5m2!1ses-419!2smx";
+const MAP_LINK =
+  "https://www.google.com/maps/search/?api=1&query=JAVU%20Coffee%20Mexicali";
+const WHATSAPP_LINK =
+  "https://wa.me/526864332364?text=Hola%20JAVU%20Coffee%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n";
+const MENU_LINK = "#";
+const ADDRESS =
+  "Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260 Mexicali, B.C.";
+const EMAIL = "hola@javucoffee.com";
+const PHONE = "(686) 433-2364";
+
+export default function HomePage() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const galleryImages = useMemo(
+    () => [
+      "/gallery-1.png",
+      "/gallery-2.png",
+      "/gallery-3.png",
+      "/gallery-4.png",
+      "/gallery-5.png",
+      "/gallery-6.png",
+      "/gallery-7.png",
+      "/gallery-8.png",
+    ],
+    []
+  );
+
+  const featureImages = useMemo(
+    () => [
+      "/menu-section-1.jpg",
+      "/menu-section-2.jpg",
+      "/menu-section-3.jpg",
+    ],
+    []
+  );
+
+  const [featureImageIndex, setFeatureImageIndex] = useState(0);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
+  const visibleCards = 4;
+  const maxGalleryIndex = Math.max(0, galleryImages.length - visibleCards);
+
+  const scrollCarousel = (direction: "left" | "right") => {
+    setGalleryIndex((current) => {
+      if (direction === "left") {
+        return Math.max(current - 1, 0);
+      }
+
+      return Math.min(current + 1, maxGalleryIndex);
+    });
+  };
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.isVisible);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -12% 0px",
+      }
+    );
+
+    const revealElements = document.querySelectorAll("[data-reveal]");
+    revealElements.forEach((element) => observer.observe(element));
+
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      revealElements.forEach((element) => observer.unobserve(element));
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setFeatureImageIndex((current) =>
+        current === featureImages.length - 1 ? 0 : current + 1
+      );
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, [featureImages]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main
+      className={`${styles.page} ${navFont.variable} ${displayFont.variable} ${
+        isScrolled ? styles.scrolled : ""
+      }`}
+    >
+      <header className={styles.header}>
+        <a
+          href="#inicio"
+          className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
+        >
+          <img
+            src="/logo-mark-white.png"
+            alt="JAVU COFFEE"
+            className={styles.headerLogoImage}
+          />
+        </a>
+
+        <div className={styles.headerRight}>
+          <nav
+            className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
+          >
+            <a href="#menu">Menú</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#ubicacion">Contacto</a>
+          </nav>
+
+          <a
+            href={MENU_LINK}
+            className={`${styles.orderBtn} ${styles.loadFade} ${styles.delay3}`}
+          >
+            ORDER NOW!
+          </a>
+        </div>
+      </header>
+
+      <section id="inicio" className={styles.hero}>
+        <div className={styles.heroImage} />
+        <div className={styles.heroOverlay} />
+      </section>
+
+      <section className={styles.spotSection}>
+        <div className={styles.spotInner}>
+          <img
+            src="/xolo-javu.png"
+            alt="JAVU Xolo"
+            className={styles.spotLogo}
+          />
+        </div>
+      </section>
+
+      <section id="menu" className={styles.featureSection}>
+        <div className={styles.featureCopy}>
+          <h2 className={styles.revealText} data-reveal>
+            Café y una experiencia con carácter.
+          </h2>
+
+          <p className={styles.revealText} data-reveal>
+            JAVU nace para crear una experiencia limpia, cálida y memorable,
+            donde el café, la comida y el ambiente conviven con una identidad
+            visual clara y una atención que se siente cercana.
           </p>
-        </div>
-        <div className={styles.ctas}>
+
+          <p className={styles.revealText} data-reveal>
+            No se trata solo de servir café. Se trata de construir un lugar con
+            presencia, detalle y estilo; un espacio al que quieres volver por
+            cómo se ve, cómo se siente y cómo sabe.
+          </p>
+
+          <p className={styles.revealText} data-reveal>
+            Cada elemento de JAVU busca transmitir simplicidad bien hecha:
+            ingredientes que lucen, una carta corta, una atmósfera cuidada y una
+            marca que quiere quedarse en la memoria.
+          </p>
+
           <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={MENU_LINK}
+            className={`${styles.darkBtn} ${styles.revealText}`}
+            data-reveal
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            VIEW MENU
+          </a>
+        </div>
+
+<div className={styles.featureVisual}>
+  <div
+    key={featureImageIndex}
+    className={styles.featureImage}
+    style={{ backgroundImage: `url(${featureImages[featureImageIndex]})` }}
+  />
+</div>
+      </section>
+
+      <section className={styles.gallerySection}>
+        <div className={styles.galleryViewport}>
+          <button
+            type="button"
+            className={`${styles.galleryArrow} ${styles.galleryArrowLeft}`}
+            onClick={() => scrollCarousel("left")}
+            aria-label="Ver fotos anteriores"
+          >
+            ←
+          </button>
+
+          <div className={styles.galleryMask}>
+            <div
+              className={styles.galleryTrack}
+              style={{
+                width: `${(galleryImages.length / visibleCards) * 100}%`,
+                transform: `translate3d(-${
+                  (galleryIndex * 100) / galleryImages.length
+                }%, 0, 0)`,
+              }}
+            >
+              {galleryImages.map((src, index) => (
+                <article
+                  className={styles.galleryCard}
+                  key={`${src}-${index}`}
+                  style={{
+                    flex: `0 0 ${100 / galleryImages.length}%`,
+                    maxWidth: `${100 / galleryImages.length}%`,
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={`JAVU gallery ${index + 1}`}
+                    className={styles.galleryImage}
+                  />
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className={`${styles.galleryArrow} ${styles.galleryArrowRight}`}
+            onClick={() => scrollCarousel("right")}
+            aria-label="Ver fotos siguientes"
+          >
+            →
+          </button>
+        </div>
+      </section>
+
+      <section id="nosotros" className={styles.quoteSection}>
+        <div className={styles.quoteWrap}>
+          <p className={`${styles.quoteText} ${styles.revealText}`} data-reveal>
+            “EN JAVU QUEREMOS CREAR UN ESPACIO QUE SE SIENTA NATURAL, CÁLIDO Y
+            ABIERTO PARA TODOS. UN LUGAR DONDE PUEDAS VENIR POR UN CAFÉ RÁPIDO,
+            QUEDARTE A BRUNCHEAR CON CALMA O SIMPLEMENTE DISFRUTAR EL AMBIENTE,
+            LA COMIDA Y LA IDENTIDAD DE LA MARCA.”
+          </p>
+
+          <span
+            className={`${styles.quoteSource} ${styles.revealText}`}
+            data-reveal
+          >
+            — JAVU COFFEE
+          </span>
+
+          <a
+            href={MENU_LINK}
+            className={`${styles.quoteBtn} ${styles.revealText}`}
+            data-reveal
+          >
+            VIEW MENU
+          </a>
+        </div>
+      </section>
+
+      <section id="ubicacion" className={styles.locationSection}>
+        <div className={styles.locationGrid}>
+          <div className={styles.mapCard}>
+            <iframe
+              title="Ubicación JAVU Coffee"
+              src={MAP_EMBED}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className={styles.map}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          <div className={styles.locationCopy}>
+            <span
+              className={`${styles.sectionKicker} ${styles.revealText}`}
+              data-reveal
+            >
+              LOCATION
+            </span>
+
+            <h2 className={styles.revealText} data-reveal>
+              Ven a visitarnos
+            </h2>
+
+            <p className={styles.revealText} data-reveal>
+              {ADDRESS}
+            </p>
+
+            <div className={styles.hours}>
+              <div className={styles.revealText} data-reveal>
+                <strong>Lunes - Viernes</strong>
+                <span>7:00AM - 10:00PM</span>
+              </div>
+              <div className={styles.revealText} data-reveal>
+                <strong>Sábado</strong>
+                <span>7:00AM - 10:00PM</span>
+              </div>
+              <div className={styles.revealText} data-reveal>
+                <strong>Domingo</strong>
+                <span>7:00AM - 10:00PM</span>
+              </div>
+            </div>
+
+            <div className={styles.locationActions}>
+              <a
+                href={MAP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className={`${styles.primaryBtn} ${styles.revealText}`}
+                data-reveal
+              >
+                Abrir en Maps
+              </a>
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className={`${styles.secondaryBtnDark} ${styles.revealText}`}
+                data-reveal
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className={styles.footerWave} />
+
+        <div className={styles.footerInner}>
+          <div className={styles.footerColumn}>
+            <span
+              className={`${styles.footerTitle} ${styles.revealText}`}
+              data-reveal
+            >
+              JAVU COFFEE
+            </span>
+
+            <p className={styles.revealText} data-reveal>
+              {ADDRESS}
+            </p>
+
+            <p className={styles.revealText} data-reveal>
+              ABIERTO DE LUNES A DOMINGO
+              <br />
+              7:00AM - 10PM
+            </p>
+
+            <a
+              href={`mailto:${EMAIL}`}
+              className={styles.revealText}
+              data-reveal
+            >
+              {EMAIL}
+            </a>
+
+            <a
+              href={`tel:${PHONE.replace(/[^0-9+]/g, "")}`}
+              className={styles.revealText}
+              data-reveal
+            >
+              {PHONE}
+            </a>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <span
+              className={`${styles.footerHeading} ${styles.revealText}`}
+              data-reveal
+            >
+              NAVIGATION
+            </span>
+
+            <a href="#inicio" className={styles.revealText} data-reveal>
+              INICIO
+            </a>
+            <a href="#menu" className={styles.revealText} data-reveal>
+              MENU
+            </a>
+            <a href="#nosotros" className={styles.revealText} data-reveal>
+              NOSOTROS
+            </a>
+            <a href="#ubicacion" className={styles.revealText} data-reveal>
+              CONTACTO
+            </a>
+
+            <a
+              href={MENU_LINK}
+              className={`${styles.footerOrder} ${styles.revealText}`}
+              data-reveal
+            >
+              ORDER NOW
+            </a>
+          </div>
+
+          <div className={styles.footerColumn}>
+            <div className={styles.footerMark}>
+              <img
+                src="/logo-mark.png"
+                alt="JAVU logo"
+                className={styles.footerLogoImage}
+              />
+              <span className={styles.footerMarkText}></span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }
