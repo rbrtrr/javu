@@ -546,7 +546,7 @@
 .footer {
   position: relative;
   background: #fec015;
-  color: var(--white);
+  color: var(--black);
   padding-top: 140px;
 }
 
@@ -596,14 +596,14 @@
   font-size: 16px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--black);
   margin-bottom: 8px;
 }
 
 .footerColumn p,
 .footerColumn a {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(0, 0, 0, 0.82);
   text-decoration: none;
   font-size: 17px;
   line-height: 1.6;

@@ -134,16 +134,21 @@ export default function HomePage() {
           <nav
             className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
           >
-            <a href="#menu">Menú</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#ubicacion">Contacto</a>
+            <a
+            href="/menu"
+            className="inline-flex items-center justify-center bg-[#f4c21d] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:opacity-90"
+          >
+            Menú
+          </a>
+            <a href="/nosotros">Nosotros</a>
+            <a href="/contacto">Contacto</a>
           </nav>
 
           <a
             href={MENU_LINK}
             className={`${styles.orderBtn} ${styles.loadFade} ${styles.delay3}`}
           >
-            ORDER NOW!
+            ORDENAR!
           </a>
         </div>
       </header>
@@ -188,11 +193,11 @@ export default function HomePage() {
           </p>
 
           <a
-            href={MENU_LINK}
+            href="/menu"
             className={`${styles.darkBtn} ${styles.revealText}`}
             data-reveal
           >
-            VIEW MENU
+            VER MENÚ
           </a>
         </div>
 
@@ -273,11 +278,11 @@ export default function HomePage() {
           </span>
 
           <a
-            href={MENU_LINK}
+            href="/menu"
             className={`${styles.quoteBtn} ${styles.revealText}`}
             data-reveal
           >
-            VIEW MENU
+            VER MENÚ
           </a>
         </div>
       </section>
@@ -299,7 +304,7 @@ export default function HomePage() {
               className={`${styles.sectionKicker} ${styles.revealText}`}
               data-reveal
             >
-              LOCATION
+              UBICACIÓN
             </span>
 
             <h2 className={styles.revealText} data-reveal>
@@ -393,19 +398,22 @@ export default function HomePage() {
               className={`${styles.footerHeading} ${styles.revealText}`}
               data-reveal
             >
-              NAVIGATION
+              NAVEGACIÓN
             </span>
 
             <a href="#inicio" className={styles.revealText} data-reveal>
               INICIO
             </a>
-            <a href="#menu" className={styles.revealText} data-reveal>
-              MENU
+            <a
+              href="/menu"
+              className="inline-flex items-center justify-center bg-[#f4c21d] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:opacity-90"
+            >
+              MENÚ
             </a>
-            <a href="#nosotros" className={styles.revealText} data-reveal>
+            <a href="/nosotros" className={styles.revealText} data-reveal>
               NOSOTROS
             </a>
-            <a href="#ubicacion" className={styles.revealText} data-reveal>
+            <a href="/contacto" className={styles.revealText} data-reveal>
               CONTACTO
             </a>
 
@@ -414,7 +422,7 @@ export default function HomePage() {
               className={`${styles.footerOrder} ${styles.revealText}`}
               data-reveal
             >
-              ORDER NOW
+              ORDENAR
             </a>
           </div>
 
