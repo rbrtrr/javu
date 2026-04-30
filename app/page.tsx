@@ -22,6 +22,9 @@ const MAP_LINK =
   "https://www.google.com/maps/search/?api=1&query=JAVU%20Coffee%20Mexicali";
 const WHATSAPP_LINK =
   "https://wa.me/526864332364?text=Hola%20JAVU%20Coffee%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n";
+
+const INSTAGRAM_LINK = "https://www.instagram.com/javu.coffee";
+
 const MENU_LINK = "#";
 const ADDRESS =
   "Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260 Mexicali, B.C.";
@@ -133,10 +136,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       }`}
     >
 <header className={styles.header}>
-  <a
-    href="#inicio"
-    className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
-  >
+  <a href="#inicio" className={styles.headerBrand}>
     <img
       src="/logo-mark-white.png"
       alt="JAVU COFFEE"
@@ -150,7 +150,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
     }`}
     onClick={() => setMobileMenuOpen((prev) => !prev)}
-    aria-label="Abrir menú"
+    aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
   >
     <span />
     <span />
@@ -162,27 +162,60 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       mobileMenuOpen ? styles.headerRightOpen : ""
     }`}
   >
-    <nav className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}>
+    <nav className={styles.headerNav}>
       <a href="/menu" onClick={() => setMobileMenuOpen(false)}>
         Menú
       </a>
-
       <a href="/nosotros" onClick={() => setMobileMenuOpen(false)}>
         Nosotros
       </a>
-
       <a href="/contacto" onClick={() => setMobileMenuOpen(false)}>
         Contacto
       </a>
     </nav>
 
-    <a
-      href={MENU_LINK}
-      className={`${styles.orderBtn} ${styles.loadFade} ${styles.delay3}`}
-      onClick={() => setMobileMenuOpen(false)}
+<div className={styles.mobileMenuActions}>
+  <a
+    href={INSTAGRAM_LINK}
+    target="_blank"
+    rel="noreferrer"
+    className={styles.instagramBtn}
+    aria-label="Instagram de JAVU Coffee"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={styles.instagramIcon}
+      xmlns="http://www.w3.org/2000/svg"
     >
-      ORDENAR!
-    </a>
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  </a>
+
+  <a
+    href={MENU_LINK}
+    className={styles.orderBtn}
+    onClick={() => setMobileMenuOpen(false)}
+  >
+    ORDENAR!
+  </a>
+</div>
   </div>
 </header>
 
