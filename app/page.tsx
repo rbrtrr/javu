@@ -18,23 +18,28 @@ const displayFont = Sora({
 
 const MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.1167615412123!2d-115.4494079!3d32.6442291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d7714fb22b267f%3A0x99cd790acb4f3da8!2sJAV%C3%9A%20Coffee!5e1!3m2!1ses-419!2smx!4v1776139398134!5m2!1ses-419!2smx";
+
 const MAP_LINK =
   "https://www.google.com/maps/search/?api=1&query=JAVU%20Coffee%20Mexicali";
+
 const WHATSAPP_LINK =
   "https://wa.me/526864332364?text=Hola%20JAVU%20Coffee%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n";
 
 const INSTAGRAM_LINK = "https://www.instagram.com/javu.coffee";
-
 const MENU_LINK = "#";
+
 const ADDRESS =
   "Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260 Mexicali, B.C.";
+
 const EMAIL = "hola@javucoffee.com";
 const PHONE = "(686) 433-2364";
 
-
 export default function HomePage() {
-const [isScrolled, setIsScrolled] = useState(false);
-const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSpotCharacter, setActiveSpotCharacter] = useState(0);
+  const [featureImageIndex, setFeatureImageIndex] = useState(0);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const galleryImages = useMemo(
     () => [
@@ -51,31 +56,21 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   );
 
   const featureImages = useMemo(
-    () => [
-      "/menu-section-1.jpg",
-      "/menu-section-2.jpg",
-      "/menu-section-3.jpg",
-    ],
+    () => ["/menu-section-1.jpg", "/menu-section-2.jpg", "/menu-section-3.jpg"],
     []
   );
-  const spotCharacters = ["/personaje-javu.png", "/personaje-javu-2.png"];
 
-  const [activeSpotCharacter, setActiveSpotCharacter] = useState(0);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveSpotCharacter((prev) => (prev + 1) % spotCharacters.length);
-    }, 3600);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-
-  const [featureImageIndex, setFeatureImageIndex] = useState(0);
-  const [galleryIndex, setGalleryIndex] = useState(0);
+  const spotCharacters = useMemo(
+    () => ["/personaje-javu.png", "/personaje-javu-2.png"],
+    []
+  );
 
   const visibleCards = 4;
   const maxGalleryIndex = Math.max(0, galleryImages.length - visibleCards);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   const scrollCarousel = (direction: "left" | "right") => {
     setGalleryIndex((current) => {
@@ -86,6 +81,26 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       return Math.min(current + 1, maxGalleryIndex);
     });
   };
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSpotCharacter((current) =>
+        current === spotCharacters.length - 1 ? 0 : current + 1
+      );
+    }, 3600);
+
+    return () => window.clearInterval(interval);
+  }, [spotCharacters]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setFeatureImageIndex((current) =>
+        current === featureImages.length - 1 ? 0 : current + 1
+      );
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, [featureImages]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -119,107 +134,94 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     };
   }, []);
 
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setFeatureImageIndex((current) =>
-        current === featureImages.length - 1 ? 0 : current + 1
-      );
-    }, 3000);
-
-    return () => window.clearInterval(interval);
-  }, [featureImages]);
-
   return (
     <main
       className={`${styles.page} ${navFont.variable} ${displayFont.variable} ${
         isScrolled ? styles.scrolled : ""
       }`}
     >
-<header className={styles.header}>
-  <a href="#inicio" className={styles.headerBrand}>
-    <img
-      src="/logo-mark-white.png"
-      alt="JAVU COFFEE"
-      className={styles.headerLogoImage}
-    />
-  </a>
+      <header className={styles.header}>
+        <a href="#inicio" className={styles.headerBrand}>
+          <img
+            src="/logo-mark-white.png"
+            alt="JAVU Coffee"
+            className={styles.headerLogoImage}
+          />
+        </a>
 
-  <button
-    type="button"
-    className={`${styles.mobileMenuButton} ${
-      mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
-    }`}
-    onClick={() => setMobileMenuOpen((prev) => !prev)}
-    aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-  >
-    <span />
-    <span />
-    <span />
-  </button>
+        <button
+          type="button"
+          className={`${styles.mobileMenuButton} ${
+            mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
+          }`}
+          onClick={() => setMobileMenuOpen((current) => !current)}
+          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileMenuOpen}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
 
-  <div
-  className={`${styles.headerRight} ${
-    mobileMenuOpen ? styles.headerRightOpen : ""
-  }`}
->
-  <nav className={styles.headerNav}>
-    <a href="/menu" onClick={() => setMobileMenuOpen(false)}>
-      Menú
-    </a>
+        <div
+          className={`${styles.headerRight} ${
+            mobileMenuOpen ? styles.headerRightOpen : ""
+          }`}
+        >
+          <nav className={styles.headerNav} aria-label="Navegación principal">
+            <a href="/menu" onClick={closeMobileMenu}>
+              Menú
+            </a>
 
-    <a href="/nosotros" onClick={() => setMobileMenuOpen(false)}>
-      Nosotros
-    </a>
+            <a href="/nosotros" onClick={closeMobileMenu}>
+              Nosotros
+            </a>
 
-    <a href="/contacto" onClick={() => setMobileMenuOpen(false)}>
-      Contacto
-    </a>
+            <a href="/contacto" onClick={closeMobileMenu}>
+              Contacto
+            </a>
 
-    <a
-      href={INSTAGRAM_LINK}
-      target="_blank"
-      rel="noreferrer"
-      className={styles.instagramMenuItem}
-      aria-label="Instagram de JAVU Coffee"
-      onClick={() => setMobileMenuOpen(false)}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className={styles.instagramIcon}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="5"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <circle
-          cx="12"
-          cy="12"
-          r="4"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-      </svg>
-    </a>
-  </nav>
+            <a
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.instagramMenuItem}
+              aria-label="Instagram de JAVU Coffee"
+              onClick={closeMobileMenu}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className={styles.instagramIcon}
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+              </svg>
+            </a>
+          </nav>
 
-  <a
-    href={MENU_LINK}
-    className={styles.orderBtn}
-    onClick={() => setMobileMenuOpen(false)}
-  >
-    ORDENAR!
-  </a>
-</div>
-</header>
-
+          <a href={MENU_LINK} className={styles.orderBtn} onClick={closeMobileMenu}>
+            ORDENAR!
+          </a>
+        </div>
+      </header>
 
       <section id="inicio" className={styles.hero}>
         <div className={styles.heroImage} />
@@ -235,7 +237,9 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
                 src={src}
                 alt={`JAVU character ${index + 1}`}
                 className={`${styles.spotCharacter} ${
-                  index === activeSpotCharacter ? styles.spotCharacterActive : ""
+                  index === activeSpotCharacter
+                    ? styles.spotCharacterActive
+                    : ""
                 }`}
               />
             ))}
@@ -276,13 +280,15 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
           </a>
         </div>
 
-<div className={styles.featureVisual}>
-  <div
-    key={featureImageIndex}
-    className={styles.featureImage}
-    style={{ backgroundImage: `url(${featureImages[featureImageIndex]})` }}
-  />
-</div>
+        <div className={styles.featureVisual}>
+          <div
+            key={featureImageIndex}
+            className={styles.featureImage}
+            style={{
+              backgroundImage: `url(${featureImages[featureImageIndex]})`,
+            }}
+          />
+        </div>
       </section>
 
       <section className={styles.gallerySection}>
@@ -395,10 +401,12 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
                 <strong>Lunes - Viernes</strong>
                 <span>7:00AM - 10:00PM</span>
               </div>
+
               <div className={styles.revealText} data-reveal>
                 <strong>Sábado</strong>
                 <span>7:00AM - 10:00PM</span>
               </div>
+
               <div className={styles.revealText} data-reveal>
                 <strong>Domingo</strong>
                 <span>7:00AM - 10:00PM</span>
@@ -415,6 +423,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
               >
                 Abrir en Maps
               </a>
+
               <a
                 href={WHATSAPP_LINK}
                 target="_blank"
@@ -429,98 +438,101 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         </div>
       </section>
 
-<footer className={styles.footer}>
-  <div className={styles.footerWave} />
+      <footer className={styles.footer}>
+        <div className={styles.footerWave} />
 
-  <div className={styles.footerInner}>
-    <div className={styles.footerColumn}>
-      <h3
-        className={`${styles.footerTitle} ${styles.revealText}`}
-        data-reveal
-      >
-        JAVU COFFEE
-      </h3>
+        <div className={styles.footerInner}>
+          <div className={styles.footerColumn}>
+            <h3
+              className={`${styles.footerTitle} ${styles.revealText}`}
+              data-reveal
+            >
+              JAVU COFFEE
+            </h3>
 
-      <p className={`${styles.revealText} ${styles.delay1}`} data-reveal>
-        Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260
-      </p>
+            <p className={`${styles.revealText} ${styles.delay1}`} data-reveal>
+              Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260
+            </p>
 
-      <p className={`${styles.revealText} ${styles.delay2}`} data-reveal>
-        Mexicali, B.C.
-      </p>
+            <p className={`${styles.revealText} ${styles.delay2}`} data-reveal>
+              Mexicali, B.C.
+            </p>
 
-      <p
-        className={`${styles.footerHeading} ${styles.revealText} ${styles.delay3}`}
-        data-reveal
-      >
-        ABIERTO DE LUNES A DOMINGO
-      </p>
+            <p
+              className={`${styles.footerHeading} ${styles.revealText} ${styles.delay3}`}
+              data-reveal
+            >
+              ABIERTO DE LUNES A DOMINGO
+            </p>
 
-      <p className={`${styles.revealText} ${styles.delay4}`} data-reveal>
-        7:00 AM - 10:00 PM
-      </p>
+            <p className={`${styles.revealText} ${styles.delay4}`} data-reveal>
+              7:00 AM - 10:00 PM
+            </p>
 
-      <p className={`${styles.revealText} ${styles.delay5}`} data-reveal>
-        {EMAIL}
-      </p>
+            <p className={`${styles.revealText} ${styles.delay5}`} data-reveal>
+              {EMAIL}
+            </p>
 
-      <p className={`${styles.revealText} ${styles.delay6}`} data-reveal>
-        {PHONE}
-      </p>
-    </div>
+            <p className={`${styles.revealText} ${styles.delay6}`} data-reveal>
+              {PHONE}
+            </p>
+          </div>
 
-    <div className={styles.footerColumn}>
-      <h4
-        className={`${styles.footerHeading} ${styles.revealText}`}
-        data-reveal
-      >
-        NAVEGACIÓN
-      </h4>
+          <div className={styles.footerColumn}>
+            <h4
+              className={`${styles.footerHeading} ${styles.revealText}`}
+              data-reveal
+            >
+              NAVEGACIÓN
+            </h4>
 
-      <a
-        href="#inicio"
-        className={`${styles.revealText} ${styles.delay1}`}
-        data-reveal
-      >
-        INICIO
-      </a>
+            <a
+              href="#inicio"
+              className={`${styles.revealText} ${styles.delay1}`}
+              data-reveal
+            >
+              INICIO
+            </a>
 
-      <a
-        href="/menu"
-        className={`${styles.revealText} ${styles.delay2}`}
-        data-reveal
-      >
-        MENÚ
-      </a>
+            <a
+              href="/menu"
+              className={`${styles.revealText} ${styles.delay2}`}
+              data-reveal
+            >
+              MENÚ
+            </a>
 
-      <a
-        href="/nosotros"
-        className={`${styles.revealText} ${styles.delay3}`}
-        data-reveal
-      >
-        NOSOTROS
-      </a>
+            <a
+              href="/nosotros"
+              className={`${styles.revealText} ${styles.delay3}`}
+              data-reveal
+            >
+              NOSOTROS
+            </a>
 
-      <a
-        href="/contacto"
-        className={`${styles.revealText} ${styles.delay4}`}
-        data-reveal
-      >
-        CONTACTO
-      </a>
-    </div>
+            <a
+              href="/contacto"
+              className={`${styles.revealText} ${styles.delay4}`}
+              data-reveal
+            >
+              CONTACTO
+            </a>
+          </div>
 
-    <div className={`${styles.footerColumn} ${styles.footerMarkWrap}`}>
-      <div className={`${styles.footerMark} ${styles.revealText}`} data-reveal>
-        <img
-          src="/logo-mark.png"
-          alt="JAVU Coffee"
-          className={styles.footerLogoImage}
-        />
-      </div>
-    </div>
-  </div>
-</footer>
+          <div className={`${styles.footerColumn} ${styles.footerMarkWrap}`}>
+            <div
+              className={`${styles.footerMark} ${styles.revealText}`}
+              data-reveal
+            >
+              <img
+                src="/logo-mark.png"
+                alt="JAVU Coffee"
+                className={styles.footerLogoImage}
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
-} 
+}
