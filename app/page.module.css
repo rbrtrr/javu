@@ -84,6 +84,7 @@
   height: 160px;
   width: auto;
   object-fit: contain;
+  transform: translateY(-32px);
 }
 
 .headerRight {
@@ -237,37 +238,88 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  isolation: isolate;
+}
+
+.spotSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/xolo-pattern.png");
+  background-repeat: repeat;
+  background-size: 280px auto;
+  background-position: center;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.spotSection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(254, 192, 21, 0.72);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .spotInner {
   width: 100%;
+  min-height: 640px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 40px;
+  padding: 70px 40px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
-.spotLogo {
-  display: block;
-  width: min(400px, 42vw);
-  height: auto;
+.spotStage {
+  position: relative;
+  width: 430px;
+  height: 620px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.spotCharacter {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: auto;
+  height: 585px;
+  max-width: none;
   object-fit: contain;
-  opacity: 0.98;
-  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.18));
-  animation:
-    xoloIntro 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
-    xoloFloatSoft 6.5s ease-in-out 1s infinite;
-  will-change: transform, filter;
+  object-position: center bottom;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.995);
+  filter: blur(6px) drop-shadow(0 22px 55px rgba(0, 0, 0, 0.16));
+  transition:
+    opacity 1.15s ease,
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.15s ease;
+  pointer-events: none;
+  will-change: opacity, transform, filter;
 }
 
-@keyframes xoloIntro {
+.spotCharacterActive {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  filter: blur(0) drop-shadow(0 24px 60px rgba(0, 0, 0, 0.18));
+}
+
+@keyframes spotCharacterFloat {
   0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.96);
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.015) translateY(-8px);
   }
   100% {
-    opacity: 0.98;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -294,6 +346,9 @@
 }
 
 .featureCopy {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: #fec015;
   color: var(--white);
   padding: 120px 54px;
@@ -302,6 +357,36 @@
   justify-content: center;
   min-height: 900px;
   box-sizing: border-box;
+}
+
+.featureCopy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/xolo-pattern.png");
+  background-repeat: repeat;
+  background-size: 280px auto;
+  background-position: center;
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.featureCopy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(254, 192, 21, 0.78);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.featureCopy h2,
+.featureCopy p,
+.featureCopy a {
+  position: relative;
+  z-index: 2;
 }
 
 .featureCopy .sectionKicker {
@@ -685,33 +770,103 @@
     cursor: auto;
   }
 
+  @media (max-width: 860px) {
   .header {
-    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 80;
+    display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 18px 20px 0;
-  }
-
-  .headerRight {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    padding-top: 0;
+    justify-content: space-between;
+    padding: 22px 22px 0;
+    background: transparent;
   }
 
   .headerBrand {
-    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 90;
   }
 
   .headerLogoImage {
-    height: 78px;
+    height: 92px;
+    width: auto;
+    transform: translateY(-14px);
+  }
+
+  .mobileMenuButton {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 90;
+  }
+
+  .mobileMenuButton span {
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    display: block;
+    transition:
+      transform 0.28s ease,
+      opacity 0.28s ease;
+  }
+
+  .mobileMenuButtonOpen span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobileMenuButtonOpen span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobileMenuButtonOpen span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .headerRight {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    width: 100%;
+    min-height: 100vh;
+    padding: 140px 24px 34px;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 24px;
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.3s ease;
+  }
+
+  .headerRightOpen {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .headerNav {
-    gap: 22px;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
   }
 
   .headerNav a,
@@ -721,16 +876,30 @@
   .headerNav a:-webkit-any-link {
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: var(--font-nav), Arial, sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: var(--font-display), Arial, sans-serif;
+  }
+
+  .headerNav a::after {
+    display: none;
   }
 
   .orderBtn {
     width: 100%;
-    max-width: 320px;
-    height: 56px;
+    max-width: none;
+    height: 64px;
+    background: #fec015;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    margin-top: 10px;
   }
+}
 
   .featureCopy,
   .quoteSection,
@@ -787,16 +956,24 @@
     padding-right: 20px;
   }
 
+@media (max-width: 860px) {
   .spotSection {
-    min-height: 420px;
+    min-height: 460px;
   }
 
   .spotInner {
-    padding: 40px 20px;
+    min-height: 460px;
+    padding: 44px 20px;
   }
 
-  .spotLogo {
-    width: min(260px, 62vw);
+@media (max-width: 860px) {
+  .spotStage {
+    width: 300px;
+    height: 430px;
+  }
+
+  .spotCharacter {
+    height: 405px;
   }
 }
 
@@ -895,4 +1072,9 @@
 .primaryBtn,
 .secondaryBtnDark {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+}
+}
+.mobileMenuButton {
+  display: none;
 }

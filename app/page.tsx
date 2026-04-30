@@ -28,8 +28,10 @@ const ADDRESS =
 const EMAIL = "hola@javucoffee.com";
 const PHONE = "(686) 433-2364";
 
+
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const galleryImages = useMemo(
     () => [
@@ -53,6 +55,18 @@ export default function HomePage() {
     ],
     []
   );
+  const spotCharacters = ["/personaje-javu.png", "/personaje-javu-2.png"];
+
+  const [activeSpotCharacter, setActiveSpotCharacter] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSpotCharacter((prev) => (prev + 1) % spotCharacters.length);
+    }, 3600);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
 
   const [featureImageIndex, setFeatureImageIndex] = useState(0);
   const [galleryIndex, setGalleryIndex] = useState(0);
@@ -118,40 +132,62 @@ export default function HomePage() {
         isScrolled ? styles.scrolled : ""
       }`}
     >
-      <header className={styles.header}>
-        <a
-          href="#inicio"
-          className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
-        >
-          <img
-            src="/logo-mark-white.png"
-            alt="JAVU COFFEE"
-            className={styles.headerLogoImage}
-          />
-        </a>
+<header className={styles.header}>
+  <a
+    href="#inicio"
+    className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
+  >
+    <img
+      src="/logo-mark-white.png"
+      alt="JAVU COFFEE"
+      className={styles.headerLogoImage}
+    />
+  </a>
 
-        <div className={styles.headerRight}>
-          <nav
-            className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
-          >
-            <a
-            href="/menu"
-            className="inline-flex items-center justify-center bg-[#f4c21d] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:opacity-90"
-          >
-            Menú
-          </a>
-            <a href="/nosotros">Nosotros</a>
-            <a href="/contacto">Contacto</a>
-          </nav>
+  <button
+    type="button"
+    className={`${styles.mobileMenuButton} ${
+      mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
+    }`}
+    onClick={() => setMobileMenuOpen((prev) => !prev)}
+    aria-label="Abrir menú"
+  >
+    <span />
+    <span />
+    <span />
+  </button>
 
-          <a
-            href={MENU_LINK}
-            className={`${styles.orderBtn} ${styles.loadFade} ${styles.delay3}`}
-          >
-            ORDENAR!
-          </a>
-        </div>
-      </header>
+  <div
+    className={`${styles.headerRight} ${
+      mobileMenuOpen ? styles.headerRightOpen : ""
+    }`}
+  >
+    <nav
+      className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
+    >
+      <a href="/menu" onClick={() => setMobileMenuOpen(false)}>
+        Menú
+      </a>
+
+      <a href="/nosotros" onClick={() => setMobileMenuOpen(false)}>
+        Nosotros
+      </a>
+
+      <a href="/contacto" onClick={() => setMobileMenuOpen(false)}>
+        Contacto
+      </a>
+    </nav>
+
+    <a
+      href={MENU_LINK}
+      className={`${styles.orderBtn} ${styles.loadFade} ${styles.delay3}`}
+      onClick={() => setMobileMenuOpen(false)}
+    >
+      ORDENAR!
+    </a>
+  </div>
+</header>
+
 
       <section id="inicio" className={styles.hero}>
         <div className={styles.heroImage} />
@@ -160,11 +196,18 @@ export default function HomePage() {
 
       <section className={styles.spotSection}>
         <div className={styles.spotInner}>
-          <img
-            src="/xolo-javu.png"
-            alt="JAVU Xolo"
-            className={styles.spotLogo}
-          />
+          <div className={styles.spotStage}>
+            {spotCharacters.map((src, index) => (
+              <img
+                key={src}
+                src={src}
+                alt={`JAVU character ${index + 1}`}
+                className={`${styles.spotCharacter} ${
+                  index === activeSpotCharacter ? styles.spotCharacterActive : ""
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -354,90 +397,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerWave} />
+<footer className={styles.footer}>
+  <div className={styles.footerWave} />
 
-        <div className={styles.footerInner}>
-          <div className={styles.footerColumn}>
-            <span
-              className={`${styles.footerTitle} ${styles.revealText}`}
-              data-reveal
-            >
-              JAVU COFFEE
-            </span>
+  <div className={styles.footerInner}>
+    <div className={styles.footerColumn}>
+      <h3
+        className={`${styles.footerTitle} ${styles.revealText}`}
+        data-reveal
+      >
+        JAVU COFFEE
+      </h3>
 
-            <p className={styles.revealText} data-reveal>
-              {ADDRESS}
-            </p>
+      <p className={`${styles.revealText} ${styles.delay1}`} data-reveal>
+        Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260
+      </p>
 
-            <p className={styles.revealText} data-reveal>
-              ABIERTO DE LUNES A DOMINGO
-              <br />
-              7:00AM - 10PM
-            </p>
+      <p className={`${styles.revealText} ${styles.delay2}`} data-reveal>
+        Mexicali, B.C.
+      </p>
 
-            <a
-              href={`mailto:${EMAIL}`}
-              className={styles.revealText}
-              data-reveal
-            >
-              {EMAIL}
-            </a>
+      <p
+        className={`${styles.footerHeading} ${styles.revealText} ${styles.delay3}`}
+        data-reveal
+      >
+        ABIERTO DE LUNES A DOMINGO
+      </p>
 
-            <a
-              href={`tel:${PHONE.replace(/[^0-9+]/g, "")}`}
-              className={styles.revealText}
-              data-reveal
-            >
-              {PHONE}
-            </a>
-          </div>
+      <p className={`${styles.revealText} ${styles.delay4}`} data-reveal>
+        7:00 AM - 10:00 PM
+      </p>
 
-          <div className={styles.footerColumn}>
-            <span
-              className={`${styles.footerHeading} ${styles.revealText}`}
-              data-reveal
-            >
-              NAVEGACIÓN
-            </span>
+      <p className={`${styles.revealText} ${styles.delay5}`} data-reveal>
+        {EMAIL}
+      </p>
 
-            <a href="#inicio" className={styles.revealText} data-reveal>
-              INICIO
-            </a>
-            <a
-              href="/menu"
-              className="inline-flex items-center justify-center bg-[#f4c21d] px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:opacity-90"
-            >
-              MENÚ
-            </a>
-            <a href="/nosotros" className={styles.revealText} data-reveal>
-              NOSOTROS
-            </a>
-            <a href="/contacto" className={styles.revealText} data-reveal>
-              CONTACTO
-            </a>
+      <p className={`${styles.revealText} ${styles.delay6}`} data-reveal>
+        {PHONE}
+      </p>
+    </div>
 
-            <a
-              href={MENU_LINK}
-              className={`${styles.footerOrder} ${styles.revealText}`}
-              data-reveal
-            >
-              ORDENAR
-            </a>
-          </div>
+    <div className={styles.footerColumn}>
+      <h4
+        className={`${styles.footerHeading} ${styles.revealText}`}
+        data-reveal
+      >
+        NAVEGACIÓN
+      </h4>
 
-          <div className={styles.footerColumn}>
-            <div className={styles.footerMark}>
-              <img
-                src="/logo-mark.png"
-                alt="JAVU logo"
-                className={styles.footerLogoImage}
-              />
-              <span className={styles.footerMarkText}></span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <a
+        href="#inicio"
+        className={`${styles.revealText} ${styles.delay1}`}
+        data-reveal
+      >
+        INICIO
+      </a>
+
+      <a
+        href="/menu"
+        className={`${styles.revealText} ${styles.delay2}`}
+        data-reveal
+      >
+        MENÚ
+      </a>
+
+      <a
+        href="/nosotros"
+        className={`${styles.revealText} ${styles.delay3}`}
+        data-reveal
+      >
+        NOSOTROS
+      </a>
+
+      <a
+        href="/contacto"
+        className={`${styles.revealText} ${styles.delay4}`}
+        data-reveal
+      >
+        CONTACTO
+      </a>
+    </div>
+
+    <div className={`${styles.footerColumn} ${styles.footerMarkWrap}`}>
+      <div className={`${styles.footerMark} ${styles.revealText}`} data-reveal>
+        <img
+          src="/logo-mark.png"
+          alt="JAVU Coffee"
+          className={styles.footerLogoImage}
+        />
+      </div>
+    </div>
+  </div>
+</footer>
     </main>
   );
-}
+} 
