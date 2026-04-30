@@ -133,28 +133,16 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       }`}
     >
 <header className={styles.header}>
-<a
-  href="#inicio"
-  className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
->
-  <img
-    src="/logo-mark-white.png"
-    alt="JAVU COFFEE"
-    className={styles.headerLogoImage}
-  />
-</a>
-<button
-  type="button"
-  className={`${styles.mobileMenuButton} ${
-    mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
-  }`}
-  onClick={() => setMobileMenuOpen((prev) => !prev)}
-  aria-label="Abrir menú"
->
-  <span />
-  <span />
-  <span />
-</button>
+  <a
+    href="#inicio"
+    className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
+  >
+    <img
+      src="/logo-mark-white.png"
+      alt="JAVU COFFEE"
+      className={styles.headerLogoImage}
+    />
+  </a>
 
   <button
     type="button"
@@ -171,12 +159,10 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   <div
     className={`${styles.headerRight} ${
-    mobileMenuOpen ? styles.headerRightOpen : ""
-  }`}
->
-    <nav
-      className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
-    >
+      mobileMenuOpen ? styles.headerRightOpen : ""
+    }`}
+  >
+    <nav className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}>
       <a href="/menu" onClick={() => setMobileMenuOpen(false)}>
         Menú
       </a>
