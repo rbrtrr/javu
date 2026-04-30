@@ -709,3 +709,37 @@
     height: 240px;
   }
 }
+
+.menuCard {
+  position: relative;
+  width: min(86vw, 720px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.menuCardImage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease;
+}
+
+.menuCardImage.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menuCardImage.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
