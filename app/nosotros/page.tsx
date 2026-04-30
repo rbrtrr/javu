@@ -3,6 +3,7 @@
 import "./nosotros.css";
 import { useEffect } from "react";
 import { Inter, Sora } from "next/font/google";
+import Header from "../components/Header";
 
 const navFont = Inter({
   subsets: ["latin"],
@@ -47,32 +48,8 @@ export default function NosotrosPage() {
 
   return (
     <main className={`aboutPage ${navFont.variable} ${displayFont.variable}`}>
-      <header className="aboutHeader">
-        <a href="/" className="aboutHeaderBrand" aria-label="Ir al inicio">
-          <img
-            src="/logo-mark-white.png"
-            alt="JAVU Coffee"
-            className="aboutHeaderLogoImage"
-          />
-        </a>
-
-        <div className="aboutHeaderRight">
-          <nav className="aboutHeaderNav" aria-label="Navegación principal">
-            <a href="/menu">Menú</a>
-            <a href="/nosotros">Nosotros</a>
-            <a href="/contacto">Contacto</a>
-          </nav>
-
-          <a
-            href="https://wa.me/526864332364?text=Hola%20JAVU%20Coffee%2C%20quiero%20hacer%20un%20pedido"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="aboutOrderBtn"
-          >
-            ORDENAR!
-          </a>
-        </div>
-      </header>
+      <Header />
+      
         <section className="aboutHero">
         <img
             src="/javuoutside.png"
