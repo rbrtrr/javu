@@ -481,3 +481,33 @@
     font-size: 30px;
   }
 }
+
+@media (max-width: 860px) {
+  .footerMarkWrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footerMark {
+    width: 100%;
+    max-width: 340px;
+    min-height: 340px;
+    margin: 40px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .footerLogoImage {
+    display: block;
+    width: 82%;
+    max-width: 260px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+}
