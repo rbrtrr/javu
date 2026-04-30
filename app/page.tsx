@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Inter, Sora } from "next/font/google";
 import styles from "./page.module.css";
+import Header from "./components/Header";
 
 const navFont = Inter({
   subsets: ["latin"],
@@ -134,106 +135,25 @@ export default function HomePage() {
     };
   }, []);
 
-  return (
-    <main
-      className={`${styles.page} ${navFont.variable} ${displayFont.variable} ${
-        isScrolled ? styles.scrolled : ""
-      }`}
-    >
-      <header className={styles.header}>
-        <a href="#inicio" className={styles.headerBrand}>
-          <img
-            src="/logo-mark-white.png"
-            alt="JAVU Coffee"
-            className={styles.headerLogoImage}
-          />
-        </a>
+return (
+  <main
+    className={`${styles.page} ${navFont.variable} ${displayFont.variable} ${
+      isScrolled ? styles.scrolled : ""
+    }`}
+  >
+    <Header />
 
-        <button
-          type="button"
-          className={`${styles.mobileMenuButton} ${
-            mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
-          }`}
-          onClick={() => setMobileMenuOpen((current) => !current)}
-          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={mobileMenuOpen}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+    <section id="inicio" className={styles.hero}>
+      <div className={styles.heroImage} />
+      <div className={styles.heroOverlay} />
+    </section>
 
-        <div
-          className={`${styles.headerRight} ${
-            mobileMenuOpen ? styles.headerRightOpen : ""
-          }`}
-        >
-          <nav className={styles.headerNav} aria-label="Navegación principal">
-            <a href="/menu" onClick={closeMobileMenu}>
-              Menú
-            </a>
-
-            <a href="/nosotros" onClick={closeMobileMenu}>
-              Nosotros
-            </a>
-
-            <a href="/contacto" onClick={closeMobileMenu}>
-              Contacto
-            </a>
-
-            <a
-              href={INSTAGRAM_LINK}
-              target="_blank"
-              rel="noreferrer"
-              className={styles.instagramMenuItem}
-              aria-label="Instagram de JAVU Coffee"
-              onClick={closeMobileMenu}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className={styles.instagramIcon}
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <rect
-                  x="3"
-                  y="3"
-                  width="18"
-                  height="18"
-                  rx="5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-              </svg>
-            </a>
-          </nav>
-
-          <a href={MENU_LINK} className={styles.orderBtn} onClick={closeMobileMenu}>
-            ORDENAR!
-          </a>
-        </div>
-      </header>
-
-      <section id="inicio" className={styles.hero}>
-        <div className={styles.heroImage} />
-        <div className={styles.heroOverlay} />
-      </section>
-
-      <section className={styles.spotSection}>
-        <div className={styles.spotInner}>
-          <div className={styles.spotStage}>
-            {spotCharacters.map((src, index) => (
-              <img
-                key={src}
+    <section className={styles.spotSection}>
+      <div className={styles.spotInner}>
+        <div className={styles.spotStage}>
+          {spotCharacters.map((src, index) => (
+            <img
+              key={src}
                 src={src}
                 alt={`JAVU character ${index + 1}`}
                 className={`${styles.spotCharacter} ${

@@ -1,0 +1,284 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 38px 44px 0;
+  background: transparent;
+  font-family: var(--font-nav), Arial, sans-serif;
+}
+
+.headerBrand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  flex: 0 0 auto;
+}
+
+.headerLogoImage {
+  display: block;
+  height: 160px;
+  width: auto;
+  object-fit: contain;
+  transform: translateY(-32px);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  margin-left: auto;
+  padding-top: 18px;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.headerNav a,
+.headerNav a:link,
+.headerNav a:visited,
+.headerNav a:active,
+.headerNav a:-webkit-any-link {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.headerNav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1.5px;
+  background: #ffffff;
+  transition: width 0.25s ease;
+}
+
+.headerNav a:hover {
+  color: #fec015;
+}
+
+.headerNav a:hover::after {
+  width: 100%;
+}
+
+.mobileMenuButton {
+  display: none;
+}
+
+.instagramMenuItem {
+  display: none;
+}
+
+.instagramIcon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.orderBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 188px;
+  height: 74px;
+  padding: 0 30px;
+  background: #fec015;
+  color: #000000;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.orderBtn:hover {
+  transform: translateY(-1px);
+  background: #ffd23f;
+}
+
+@media (max-width: 860px) {
+  .header {
+    position: absolute;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 38px 42px 0;
+    background: transparent;
+  }
+
+  .headerBrand {
+    position: relative;
+    z-index: 130;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .headerLogoImage {
+    height: 78px;
+    width: auto;
+    display: block;
+    transform: translateY(0);
+  }
+
+  .mobileMenuButton {
+    display: inline-flex;
+    position: relative;
+    z-index: 130;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobileMenuButton span {
+    display: block;
+    width: 28px;
+    height: 2.5px;
+    background: #ffffff;
+    border-radius: 999px;
+    transition:
+      transform 0.28s ease,
+      opacity 0.28s ease;
+  }
+
+  .mobileMenuButtonOpen span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+  }
+
+  .mobileMenuButtonOpen span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobileMenuButtonOpen span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+  }
+
+  .headerRight {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    width: 100vw;
+    max-width: 100vw;
+    min-height: 100dvh;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 120px 22px 34px;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition:
+      opacity 0.28s ease,
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .headerRightOpen {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .headerNav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .headerNav a,
+  .headerNav a:link,
+  .headerNav a:visited,
+  .headerNav a:active,
+  .headerNav a:-webkit-any-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.05;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0;
+    text-align: left;
+    font-family: var(--font-display), Arial, sans-serif;
+    transform: none;
+    opacity: 1;
+    animation: none;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .headerNav a::after {
+    display: none;
+  }
+
+  .headerNav a:hover,
+  .headerNav a:active {
+    color: #fec015;
+    border-bottom-color: rgba(254, 192, 21, 0.45);
+  }
+
+  .instagramMenuItem {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .instagramIcon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .orderBtn {
+    width: 86%;
+    max-width: 520px;
+    min-width: 0;
+    height: 64px;
+    min-height: 64px;
+    margin: 22px auto 0;
+    padding: 0 18px;
+    box-sizing: border-box;
+    background: #fec015;
+    color: #000000;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+  }
+}
