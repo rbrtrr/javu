@@ -101,26 +101,13 @@ export default function MenuPage() {
                 ←
               </button>
 
-                    <div className="menuCard">
-                      <div
-                        className={`menuCardImage ${activeImage === 0 ? "visible" : "hidden"}`}
-                        style={{
-                          backgroundImage: "url('/menu-page-1-mobile.jpg?v=2')",
-                        }}
+                    <div className="simpleMenuCard">
+                      <img
+                        src="/menu-page-1-mobile.jpg?v=20"
+                        alt=""
+                        className="simpleMenuImage"
                       />
-
-                      <div
-                        className={`menuCardImage ${activeImage === 1 ? "visible" : "hidden"}`}
-                        style={{
-                          backgroundImage: "url('/menu-page-2-mobile.jpg?v=2')",
-                        }}
-                      />
-
-                      <div className="menuCardBadge revealText isVisible">
-                        Página {activeImage + 1} de 2
-                      </div>
-                    </div>
-                    
+                    </div>                  
               <button
                 type="button"
                 className="galleryArrow galleryArrowRight menuArrow"
