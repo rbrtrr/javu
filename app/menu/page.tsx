@@ -102,17 +102,17 @@ export default function MenuPage() {
               </button>
 
               <div className="menuCard">
-                <img
-                  src="/menu-page-1.jpg"
-                  alt="JAVU menú página 1"
-                  className={`menuCardImage ${activeImage === 0 ? "visible" : "hidden"}`}
-                />
+                  <img
+                    src="/menu-page-1.jpg"
+                    alt="JAVU menú página 1"
+                    className={`menuCardImage ${activeImage === 0 ? "isActive" : ""}`}
+                  />
 
-                <img
-                  src="/menu-page-2.jpg"
-                  alt="JAVU menú página 2"
-                  className={`menuCardImage ${activeImage === 1 ? "visible" : "hidden"}`}
-                />
+                  <img
+                    src="/menu-page-2.jpg"
+                    alt="JAVU menú página 2"
+                    className={`menuCardImage ${activeImage === 1 ? "isActive" : ""}`}
+                  />
 
                 <div className="menuCardBadge revealText isVisible">
                   Página {activeImage + 1} de 2

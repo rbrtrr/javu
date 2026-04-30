@@ -285,23 +285,28 @@
 
 .menuCard {
   position: relative;
-  width: min(100%, 760px);
-  border-radius: 28px;
+  width: min(86vw, 720px);
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  aspect-ratio: 0.76 / 1;
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.06);
-  flex: 0 0 auto;
+  border-radius: 28px;
 }
 
 .menuCardImage {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
-  background: #ffffff;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease;
+}
+
+.menuCardImage.isActive {
+  opacity: 1;
+  visibility: visible;
 }
 
 .menuCardImage.visible {
