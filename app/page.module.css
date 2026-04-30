@@ -1218,25 +1218,7 @@
     color: #fec015;
     border-bottom-color: rgba(254, 192, 21, 0.45);
   }
-
-  .orderBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 60px;
-    margin-top: 26px;
-    padding: 0 18px;
-    border-radius: 0;
-    background: #fec015;
-    color: #000000;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    box-sizing: border-box;
-  }
-
+  
   /* Oculta el nav desktop en móvil */
   .headerNavDesktop,
   .desktopOnly {
@@ -1253,15 +1235,6 @@
 
   .headerNav {
     margin-bottom: 34px !important;
-  }
-
-  .mobileMenuActions {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-    margin-top: 0;
   }
 
   .instagramBtn {
@@ -1295,12 +1268,64 @@
   }
 }
 
-.mobileMenuActions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.instagramMenuItem {
+  display: none;
 }
 
-.instagramBtn {
-  display: none;
+.instagramIcon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+@media (max-width: 860px) {
+  .headerRight {
+    justify-content: flex-start !important;
+    gap: 20px !important;
+    padding: 120px 22px 28px !important;
+  }
+
+  .headerNav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .headerNav a {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .instagramMenuItem {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 18px 0 18px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff !important;
+    text-decoration: none !important;
+  }
+
+  .instagramMenuItem:hover,
+  .instagramMenuItem:active {
+    color: #fec015 !important;
+    border-bottom-color: rgba(254, 192, 21, 0.45);
+  }
+
+  .instagramIcon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .orderBtn {
+    width: 100% !important;
+    min-height: 64px !important;
+    margin-top: 10px !important;
+  }
 }
