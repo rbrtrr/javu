@@ -17,6 +17,11 @@ const displayFont = Sora({
   variable: "--font-display",
 });
 
+const MENU_IMAGES = [
+  "/menu-page-1-mobile.jpg?v=50",
+  "/menu-page-2-mobile.jpg?v=50",
+];
+
 export default function MenuPage() {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -24,6 +29,7 @@ export default function MenuPage() {
     document.body.classList.add("javu-menu-cursor");
 
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,11 +55,13 @@ export default function MenuPage() {
   }, []);
 
   const goNext = () => {
-    setActiveImage((prev) => (prev + 1) % 2);
+    setActiveImage((current) => (current + 1) % MENU_IMAGES.length);
   };
 
   const goPrev = () => {
-    setActiveImage((prev) => (prev - 1 + 2) % 2);
+    setActiveImage(
+      (current) => (current - 1 + MENU_IMAGES.length) % MENU_IMAGES.length
+    );
   };
 
   return (
@@ -66,7 +74,7 @@ export default function MenuPage() {
 
         <div className="menuHeroCenter">
           <h1 className="menuHeroTitle revealText" data-reveal>
-            NUESTRO MENÚ
+            Nuestro menú
           </h1>
         </div>
 
@@ -90,45 +98,36 @@ export default function MenuPage() {
 
       <section className="menuShowcaseSection">
         <div className="menuShowcaseInner">
-          <div className="menuDesktop">
-            <div className="menuCarouselShell">
-              <button
-                type="button"
-                className="galleryArrow galleryArrowLeft menuArrow"
-                onClick={goPrev}
-                aria-label="Ver menú anterior"
-              >
-                ←
-              </button>
+          <div className="menuCarouselShell">
+            <button
+              type="button"
+              className="menuArrow menuArrowLeft"
+              onClick={goPrev}
+              aria-label="Ver menú anterior"
+            >
+              ←
+            </button>
 
-                    <div className="simpleMenuCard">
-                      <img
-                        src="/menu-page-1-mobile.jpg?v=20"
-                        alt=""
-                        className="simpleMenuImage"
-                      />
-                    </div>                  
-              <button
-                type="button"
-                className="galleryArrow galleryArrowRight menuArrow"
-                onClick={goNext}
-                aria-label="Ver siguiente menú"
-              >
-                →
-              </button>
+            <div className="simpleMenuCard">
+              <img
+                src={MENU_IMAGES[activeImage]}
+                alt=""
+                className="simpleMenuImage"
+              />
             </div>
+
+            <button
+              type="button"
+              className="menuArrow menuArrowRight"
+              onClick={goNext}
+              aria-label="Ver siguiente menú"
+            >
+              →
+            </button>
           </div>
 
-          <div className="menuMobile">
-            <div className="menuSlider">
-              <article className="menuSlide">
-                <img src="/menu-1.jpg" alt="JAVU menú página 1" />
-              </article>
-
-              <article className="menuSlide">
-                <img src="/menu-2.jpg" alt="JAVU menú página 2" />
-              </article>
-            </div>
+          <div className="menuPagination">
+            Página {activeImage + 1} de {MENU_IMAGES.length}
           </div>
 
           <div className="menuDownloadWrap">
@@ -156,6 +155,7 @@ export default function MenuPage() {
             <p className="revealText delay1" data-reveal>
               Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260
             </p>
+
             <p className="revealText delay2" data-reveal>
               Mexicali, B.C.
             </p>
@@ -163,6 +163,7 @@ export default function MenuPage() {
             <p className="footerHeading revealText delay3" data-reveal>
               ABIERTO DE LUNES A DOMINGO
             </p>
+
             <p className="revealText delay4" data-reveal>
               7:00 AM - 10:00 PM
             </p>
@@ -170,6 +171,7 @@ export default function MenuPage() {
             <p className="revealText delay5" data-reveal>
               hola@javucoffee.com
             </p>
+
             <p className="revealText delay6" data-reveal>
               (686) 433-2364
             </p>
@@ -183,12 +185,15 @@ export default function MenuPage() {
             <a href="/" className="revealText delay1" data-reveal>
               INICIO
             </a>
+
             <a href="/menu" className="revealText delay2" data-reveal>
               MENÚ
             </a>
+
             <a href="/nosotros" className="revealText delay3" data-reveal>
               NOSOTROS
             </a>
+
             <a href="/contacto" className="revealText delay4" data-reveal>
               CONTACTO
             </a>
