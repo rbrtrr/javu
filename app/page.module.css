@@ -1080,59 +1080,69 @@
 }
 
 @media (max-width: 860px) {
+@media (max-width: 860px) {
   .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 120;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 22px 0;
-    background: transparent;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 120 !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    padding: 38px 42px 0 !important;
+    background: transparent !important;
   }
 
   .headerBrand {
-    position: relative;
-    z-index: 130;
-    display: flex;
-    align-items: center;
+    position: relative !important;
+    z-index: 130 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
   }
 
-.headerLogoImage {
-  display: block;
-  height: 160px;
-  width: auto;
-  object-fit: contain;
-  transform: translateY(-32px);
-}
+  .headerLogoImage {
+    height: 78px !important;
+    width: auto !important;
+    display: block !important;
+    transform: translateY(0px) !important;
+  }
 
   .mobileMenuButton {
-    display: inline-flex;
-    position: relative;
-    z-index: 130;
-    width: 44px;
-    height: 44px;
-    border: none;
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
+    display: inline-flex !important;
+    position: relative !important;
+    z-index: 130 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    border: none !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: translateY(0px) !important;
   }
 
   .mobileMenuButton span {
-    display: block;
-    width: 28px;
-    height: 2.5px;
-    border-radius: 999px;
-    background: #ffffff;
-    transition: transform 0.28s ease, opacity 0.28s ease;
+    display: block !important;
+    width: 28px !important;
+    height: 2.5px !important;
+    background: #ffffff !important;
+    border-radius: 999px !important;
   }
+}
 
   .mobileMenuButtonOpen span:nth-child(1) {
     transform: translateY(8.5px) rotate(45deg);
