@@ -1079,67 +1079,61 @@
   display: none;
 }
 
-.mobileMenuButton {
-  display: none;
-}
-
 @media (max-width: 860px) {
   .header {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 100 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 28px 24px 0 !important;
-    background: transparent !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 22px 0;
+    background: transparent;
   }
 
   .headerBrand {
-    position: relative !important;
-    z-index: 120 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
+    position: relative;
+    z-index: 130;
+    display: flex;
+    align-items: center;
   }
 
   .headerLogoImage {
-    height: 86px !important;
-    width: auto !important;
-    transform: translateY(-10px) !important;
+    width: auto;
+    height: 74px;
+    display: block;
   }
 
   .mobileMenuButton {
-    display: inline-flex !important;
-    position: relative !important;
-    z-index: 120 !important;
-    width: 46px !important;
-    height: 46px !important;
-    border: none !important;
-    background: transparent !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-    padding: 0 !important;
+    display: inline-flex;
+    position: relative;
+    z-index: 130;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
   }
 
   .mobileMenuButton span {
-    display: block !important;
-    width: 28px !important;
-    height: 2px !important;
-    background: #ffffff !important;
-    border-radius: 999px !important;
-    transition:
-      transform 0.28s ease,
-      opacity 0.28s ease;
+    display: block;
+    width: 28px;
+    height: 2.5px;
+    border-radius: 999px;
+    background: #ffffff;
+    transition: transform 0.28s ease, opacity 0.28s ease;
   }
 
   .mobileMenuButtonOpen span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: translateY(8.5px) rotate(45deg);
   }
 
   .mobileMenuButtonOpen span:nth-child(2) {
@@ -1147,73 +1141,93 @@
   }
 
   .mobileMenuButtonOpen span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-8.5px) rotate(-45deg);
   }
 
   .headerRight {
-    position: fixed !important;
-    inset: 0 !important;
-    z-index: 90 !important;
-    width: 100% !important;
-    min-height: 100vh !important;
-    padding: 150px 26px 34px !important;
-    background: rgba(0, 0, 0, 0.92) !important;
-    backdrop-filter: blur(18px) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    gap: 24px !important;
-    transform: translateX(100%) !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transition:
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.28s ease !important;
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 120px 22px 28px;
+    box-sizing: border-box;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-16px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    overflow-y: auto;
   }
 
   .headerRightOpen {
-    transform: translateX(0) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .headerNav {
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
-  .headerNav a,
-  .headerNav a:link,
-  .headerNav a:visited,
-  .headerNav a:active,
-  .headerNav a:-webkit-any-link {
-    color: #ffffff !important;
-    text-decoration: none !important;
-    font-size: 34px !important;
-    font-weight: 800 !important;
-    line-height: 1 !important;
-    padding: 22px 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
-    font-family: var(--font-display), Arial, sans-serif !important;
+  .headerNav a {
+    display: block;
+    width: 100%;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.05;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0;
+    text-align: left;
+
+    /* IMPORTANTE: resetea cualquier reveal / movimiento raro */
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .headerNav a::after {
-    display: none !important;
+  .headerNav a:hover,
+  .headerNav a:active {
+    color: #fec015;
+    border-bottom-color: rgba(254, 192, 21, 0.45);
   }
 
   .orderBtn {
-    width: 100% !important;
-    max-width: none !important;
-    height: 64px !important;
-    background: #fec015 !important;
-    color: #000000 !important;
-    font-size: 14px !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.16em !important;
-    margin-top: 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 60px;
+    margin-top: 26px;
+    padding: 0 18px;
+    border-radius: 0;
+    background: #fec015;
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    box-sizing: border-box;
+  }
+
+  /* Oculta el nav desktop en móvil */
+  .headerNavDesktop,
+  .desktopOnly {
+    display: none !important;
   }
 }
