@@ -30,8 +30,8 @@ const PHONE = "(686) 433-2364";
 
 
 export default function HomePage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const [isScrolled, setIsScrolled] = useState(false);
+const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const galleryImages = useMemo(
     () => [
@@ -133,16 +133,28 @@ export default function HomePage() {
       }`}
     >
 <header className={styles.header}>
-  <a
-    href="#inicio"
-    className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
-  >
-    <img
-      src="/logo-mark-white.png"
-      alt="JAVU COFFEE"
-      className={styles.headerLogoImage}
-    />
-  </a>
+<a
+  href="#inicio"
+  className={`${styles.headerBrand} ${styles.loadFade} ${styles.delay1}`}
+>
+  <img
+    src="/logo-mark-white.png"
+    alt="JAVU COFFEE"
+    className={styles.headerLogoImage}
+  />
+</a>
+<button
+  type="button"
+  className={`${styles.mobileMenuButton} ${
+    mobileMenuOpen ? styles.mobileMenuButtonOpen : ""
+  }`}
+  onClick={() => setMobileMenuOpen((prev) => !prev)}
+  aria-label="Abrir menú"
+>
+  <span />
+  <span />
+  <span />
+</button>
 
   <button
     type="button"
@@ -159,9 +171,9 @@ export default function HomePage() {
 
   <div
     className={`${styles.headerRight} ${
-      mobileMenuOpen ? styles.headerRightOpen : ""
-    }`}
-  >
+    mobileMenuOpen ? styles.headerRightOpen : ""
+  }`}
+>
     <nav
       className={`${styles.headerNav} ${styles.loadFade} ${styles.delay2}`}
     >
