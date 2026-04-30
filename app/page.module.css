@@ -1100,11 +1100,13 @@
     align-items: center;
   }
 
-  .headerLogoImage {
-    width: auto;
-    height: 74px;
-    display: block;
-  }
+.headerLogoImage {
+  display: block;
+  height: 160px;
+  width: auto;
+  object-fit: contain;
+  transform: translateY(-32px);
+}
 
   .mobileMenuButton {
     display: inline-flex;
