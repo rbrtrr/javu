@@ -103,13 +103,13 @@ export default function MenuPage() {
 
               <div className="menuCard">
                   <img
-                    src="/menu-page-1.jpg"
+                    src="/menu-page-1-mobile.jpg?v=2"
                     alt="JAVU menú página 1"
                     className={`menuCardImage ${activeImage === 0 ? "isActive" : ""}`}
                   />
 
                   <img
-                    src="/menu-page-2.jpg"
+                    src="/menu-page-2-mobile.jpg?v=2"
                     alt="JAVU menú página 2"
                     className={`menuCardImage ${activeImage === 1 ? "isActive" : ""}`}
                   />
