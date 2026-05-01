@@ -534,12 +534,14 @@
     align-items: flex-start;
   }
 
+@media (max-width: 860px) {
   .footerMarkWrap {
     grid-area: logo;
     width: 100%;
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: flex-end !important;
+    padding-top: 62px !important;
   }
 
   .footerMark {
@@ -565,19 +567,5 @@
     object-fit: contain;
     margin: 0;
   }
-
-  .footerTitle {
-    font-size: 30px;
-    letter-spacing: 0.18em;
-  }
-
-  .footerHeading {
-    margin-bottom: 10px;
-  }
-
-  .footerColumn p,
-  .footerColumn a {
-    font-size: 15px;
-    line-height: 1.5;
-  }
+}
 }
