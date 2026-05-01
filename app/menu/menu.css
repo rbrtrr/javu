@@ -513,45 +513,73 @@
 }
 @media (max-width: 860px) {
   .footerInner {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "info info"
+      "nav logo" !important;
+    gap: 34px 20px !important;
+    align-items: start !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
   }
 
-  .footerColumn {
-    width: 100% !important;
-    align-items: flex-start !important;
+  .footerColumn:nth-child(1) {
+    grid-area: info;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .footerColumn:nth-child(2) {
+    grid-area: nav;
+    width: 100%;
+    align-items: flex-start;
   }
 
   .footerMarkWrap {
-    width: 100% !important;
+    grid-area: logo;
+    width: 100%;
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-end !important;
   }
 
   .footerMark {
-    width: min(100%, 340px) !important;
-    max-width: 340px !important;
-    min-height: 340px !important;
-    margin: 40px auto 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 24px !important;
-    box-sizing: border-box !important;
+    width: 100%;
+    max-width: 260px;
+    min-height: auto;
+    margin: 0 0 0 auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
 
   .footerLogoImage {
-    display: block !important;
-    width: 82% !important;
-    max-width: 260px !important;
-    height: auto !important;
-    object-fit: contain !important;
-    margin: 0 auto !important;
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+  }
+
+  .footerTitle {
+    font-size: 30px;
+    letter-spacing: 0.18em;
+  }
+
+  .footerHeading {
+    margin-bottom: 10px;
+  }
+
+  .footerColumn p,
+  .footerColumn a {
+    font-size: 15px;
+    line-height: 1.5;
   }
 }
-
