@@ -106,9 +106,9 @@ export default function Header() {
           </a>
         </nav>
 
-        <a href={MENU_LINK} className={styles.orderBtn} onClick={closeMobileMenu}>
-          ORDENAR!
-        </a>
+          <a href="tel:+526864332364" className={styles.orderBtn}>
+            ORDENAR!
+          </a>
       </div>
     </header>
   );

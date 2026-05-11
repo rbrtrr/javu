@@ -17,6 +17,8 @@ const displayFont = Sora({
   variable: "--font-display",
 });
 
+const CALL_LINK = "tel:+526864332364";
+
 export default function NosotrosPage() {
   useEffect(() => {
     document.body.classList.add("javu-about-cursor");
@@ -136,9 +138,9 @@ export default function NosotrosPage() {
             <p className="revealText delay5" data-reveal>
               hola@javucoffee.com
             </p>
-            <p className="revealText delay6" data-reveal>
+            <a href={CALL_LINK} className="revealText delay6" data-reveal>
               (686) 433-2364
-            </p>
+            </a>
           </div>
 
           <div className="aboutFooterColumn">

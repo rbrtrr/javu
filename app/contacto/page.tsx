@@ -23,6 +23,8 @@ const MAP_EMBED =
 const MAP_LINK =
   "https://www.google.com/maps/search/?api=1&query=JAVU%20Coffee%20Mexicali";
 
+  const CALL_LINK = "tel:+526864332364";
+
 export default function ContactoPage() {
   useEffect(() => {
     document.body.classList.add("javu-contact-cursor");
@@ -163,9 +165,9 @@ export default function ContactoPage() {
             <p className="revealText delay5" data-reveal>
               hola@javucoffee.com
             </p>
-            <p className="revealText delay6" data-reveal>
+            <a href={CALL_LINK} className="revealText delay6" data-reveal>
               (686) 433-2364
-            </p>
+            </a>
           </div>
 
           <div className="contactFooterColumn">

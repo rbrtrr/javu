@@ -22,6 +22,8 @@ const MENU_IMAGES = [
   "/menu-page-2-mobile.jpg?v=50",
 ];
 
+const CALL_LINK = "tel:+526864332364";
+
 export default function MenuPage() {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -172,9 +174,9 @@ export default function MenuPage() {
               hola@javucoffee.com
             </p>
 
-            <p className="revealText delay6" data-reveal>
+            <a href={CALL_LINK} className="revealText delay6" data-reveal>
               (686) 433-2364
-            </p>
+            </a>
           </div>
 
           <div className="footerColumn">

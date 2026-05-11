@@ -23,8 +23,7 @@ const MAP_EMBED =
 const MAP_LINK =
   "https://www.google.com/maps/search/?api=1&query=JAVU%20Coffee%20Mexicali";
 
-const WHATSAPP_LINK =
-  "https://wa.me/526864332364?text=Hola%20JAVU%20Coffee%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n";
+const CALL_LINK = "tel:+526864332364";
 
 const INSTAGRAM_LINK = "https://www.instagram.com/javu.coffee";
 const MENU_LINK = "#";
@@ -344,15 +343,13 @@ return (
                 Abrir en Maps
               </a>
 
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className={`${styles.secondaryBtnDark} ${styles.revealText}`}
-                data-reveal
-              >
-                WhatsApp
-              </a>
+                <a
+                  href={CALL_LINK}
+                  className={`${styles.secondaryBtnDark} ${styles.revealText}`}
+                  data-reveal
+                >
+                  Llamar ahora
+                </a>
             </div>
           </div>
         </div>
@@ -393,9 +390,13 @@ return (
               {EMAIL}
             </p>
 
-            <p className={`${styles.revealText} ${styles.delay6}`} data-reveal>
+            <a
+              href={CALL_LINK}
+              className={`${styles.revealText} ${styles.delay6}`}
+              data-reveal
+            >
               {PHONE}
-            </p>
+            </a>
           </div>
 
           <div className={styles.footerColumn}>
