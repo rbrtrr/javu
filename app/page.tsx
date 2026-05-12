@@ -234,58 +234,78 @@ return (
         </div>
       </section>
 
-      <section className={styles.gallerySection}>
-        <div className={styles.galleryViewport}>
-          <button
-            type="button"
-            className={`${styles.galleryArrow} ${styles.galleryArrowLeft}`}
-            onClick={() => scrollCarousel("left")}
-            aria-label="Ver fotos anteriores"
-          >
-            ←
-          </button>
+<section className={styles.gallerySection}>
+  <div className={styles.galleryViewport}>
+    <button
+      type="button"
+      className={`${styles.galleryArrow} ${styles.galleryArrowLeft}`}
+      onClick={() => scrollCarousel("left")}
+      aria-label="Ver fotos anteriores"
+    >
+      ←
+    </button>
 
-            <div
-              className={styles.galleryTrack}
-              onTransitionEnd={handleGalleryTransitionEnd}
-              style={{
-                width: `${(extendedGalleryImages.length / visibleCards) * 100}%`,
-                transform: `translate3d(-${
-                  (galleryIndex * 100) / extendedGalleryImages.length
-                }%, 0, 0)`,
-                transition: galleryTransition
-                  ? "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)"
-                  : "none",
-              }}
-            >
-              {extendedGalleryImages.map((src, index) => (
-                <article
-                  className={styles.galleryCard}
-                  key={`${src}-${index}`}
-                  style={{
-                    flex: `0 0 ${100 / extendedGalleryImages.length}%`,
-                    maxWidth: `${100 / extendedGalleryImages.length}%`,
-                  }}
-                >
-                  <img
-                    src={src}
-                    alt={`JAVU gallery ${index + 1}`}
-                    className={styles.galleryImage}
-                  />
-                </article>
-              ))}
-            </div>
-
-          <button
-            type="button"
-            className={`${styles.galleryArrow} ${styles.galleryArrowRight}`}
-            onClick={() => scrollCarousel("right")}
-            aria-label="Ver fotos siguientes"
+    <div className={styles.galleryMask}>
+      {/* Desktop: carrusel infinito */}
+      <div
+        className={`${styles.galleryTrack} ${styles.galleryTrackDesktop}`}
+        onTransitionEnd={handleGalleryTransitionEnd}
+        style={{
+          width: `${(extendedGalleryImages.length / visibleCards) * 100}%`,
+          transform: `translate3d(-${
+            (galleryIndex * 100) / extendedGalleryImages.length
+          }%, 0, 0)`,
+          transition: galleryTransition
+            ? "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)"
+            : "none",
+        }}
+      >
+        {extendedGalleryImages.map((src, index) => (
+          <article
+            className={styles.galleryCard}
+            key={`desktop-${src}-${index}`}
+            style={{
+              flex: `0 0 ${100 / extendedGalleryImages.length}%`,
+              maxWidth: `${100 / extendedGalleryImages.length}%`,
+            }}
           >
-            →
-          </button>
-        </div>
-      </section>
+            <img
+              src={src}
+              alt={`JAVU gallery ${index + 1}`}
+              className={styles.galleryImage}
+            />
+          </article>
+        ))}
+      </div>
+
+      {/* Mobile: swipe normal, empieza desde gallery-1 */}
+      <div className={`${styles.galleryTrack} ${styles.galleryTrackMobile}`}>
+        {galleryImages.map((src, index) => (
+          <article
+            className={styles.galleryCard}
+            key={`mobile-${src}-${index}`}
+          >
+            <img
+              src={src}
+              alt={`JAVU gallery ${index + 1}`}
+              className={styles.galleryImage}
+            />
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      className={`${styles.galleryArrow} ${styles.galleryArrowRight}`}
+      onClick={() => scrollCarousel("right")}
+      aria-label="Ver fotos siguientes"
+    >
+      →
+    </button>
+  </div>
+</section>
+
 
       <section id="nosotros" className={styles.quoteSection}>
         <div className={styles.quoteWrap}>
