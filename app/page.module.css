@@ -340,12 +340,21 @@
   overflow: hidden;
   background: var(--yellow);
   color: var(--white);
-  padding: 120px 54px;
+  padding: 70px 54px 90px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 900px;
   box-sizing: border-box;
+}
+
+.featureCopy h2 {
+  margin-top: 0;
+}
+
+.featureCopy .darkBtn {
+  width: 100%;
+  max-width: 100%;
 }
 
 .featureCopy::before {
@@ -1119,7 +1128,7 @@
     white-space: nowrap;
     flex: 1 1 0;
   }
-  
+
 
 @media (max-width: 860px) {
   .footerInner {

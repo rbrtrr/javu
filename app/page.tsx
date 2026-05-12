@@ -31,7 +31,7 @@ const MENU_LINK = "#";
 const ADDRESS =
   "Av. Venustiano Carranza 850, Chapultepec los Pinos, 21260 Mexicali, B.C.";
 
-const EMAIL = "hola@javucoffee.com";
+const EMAIL = "hola@javu.mx";
 const PHONE = "(686) 433-2364";
 
 export default function HomePage() {
@@ -39,8 +39,7 @@ export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSpotCharacter, setActiveSpotCharacter] = useState(0);
   const [featureImageIndex, setFeatureImageIndex] = useState(0);
-  const [galleryIndex, setGalleryIndex] = useState(0);
-
+  const [galleryIndex, setGalleryIndex] = useState(4);
   const galleryImages = useMemo(
     () => [
       "/gallery-1.png",
@@ -51,6 +50,11 @@ export default function HomePage() {
       "/gallery-6.png",
       "/gallery-7.png",
       "/gallery-8.png",
+      "/gallery-9.png",
+      "/gallery-10.png",
+      "/gallery-11.png",
+      "/gallery-12.png",
+      
     ],
     []
   );
@@ -65,22 +69,44 @@ export default function HomePage() {
     []
   );
 
-  const visibleCards = 4;
-  const maxGalleryIndex = Math.max(0, galleryImages.length - visibleCards);
+const visibleCards = 4;
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
+const extendedGalleryImages = useMemo(() => {
+  const firstClones = galleryImages.slice(0, visibleCards);
+  const lastClones = galleryImages.slice(-visibleCards);
 
-  const scrollCarousel = (direction: "left" | "right") => {
-    setGalleryIndex((current) => {
-      if (direction === "left") {
-        return Math.max(current - 1, 0);
-      }
+  return [...lastClones, ...galleryImages, ...firstClones];
+}, [galleryImages]);
 
-      return Math.min(current + 1, maxGalleryIndex);
-    });
-  };
+const [galleryTransition, setGalleryTransition] = useState(true);
+
+const closeMobileMenu = () => {
+  setMobileMenuOpen(false);
+};
+
+const scrollCarousel = (direction: "left" | "right") => {
+  setGalleryTransition(true);
+
+  setGalleryIndex((current) => {
+    if (direction === "left") {
+      return current - 1;
+    }
+
+    return current + 1;
+  });
+};
+
+const handleGalleryTransitionEnd = () => {
+  if (galleryIndex >= galleryImages.length + visibleCards) {
+    setGalleryTransition(false);
+    setGalleryIndex(visibleCards);
+  }
+
+  if (galleryIndex < visibleCards) {
+    setGalleryTransition(false);
+    setGalleryIndex(galleryImages.length + visibleCards - 1);
+  }
+};
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -169,25 +195,23 @@ return (
       <section id="menu" className={styles.featureSection}>
         <div className={styles.featureCopy}>
           <h2 className={styles.revealText} data-reveal>
-            Café y una experiencia con carácter.
+            Café, ambiente y un lugar para volver.
           </h2>
 
           <p className={styles.revealText} data-reveal>
-            JAVU nace para crear una experiencia limpia, cálida y memorable,
-            donde el café, la comida y el ambiente conviven con una identidad
-            visual clara y una atención que se siente cercana.
+            En JAVU nos gusta hacer las cosas simples, pero bien hechas. Café, bebidas
+            y un ambiente cómodo para pasar por algo rápido o quedarte un rato.
           </p>
 
           <p className={styles.revealText} data-reveal>
-            No se trata solo de servir café. Se trata de construir un lugar con
-            presencia, detalle y estilo; un espacio al que quieres volver por
-            cómo se ve, cómo se siente y cómo sabe.
+            Queremos que cada visita se sienta tranquila, cercana y con buen sabor, sin
+            complicarlo demasiado. Un lugar limpio, cálido y con una identidad fácil de
+            recordar.
           </p>
 
           <p className={styles.revealText} data-reveal>
-            Cada elemento de JAVU busca transmitir simplicidad bien hecha:
-            ingredientes que lucen, una carta corta, una atmósfera cuidada y una
-            marca que quiere quedarse en la memoria.
+            Nuestra idea es sencilla: buen café, una carta bien pensada y un espacio al
+            que se antoje volver.
           </p>
 
           <a
@@ -221,23 +245,26 @@ return (
             ←
           </button>
 
-          <div className={styles.galleryMask}>
             <div
               className={styles.galleryTrack}
+              onTransitionEnd={handleGalleryTransitionEnd}
               style={{
-                width: `${(galleryImages.length / visibleCards) * 100}%`,
+                width: `${(extendedGalleryImages.length / visibleCards) * 100}%`,
                 transform: `translate3d(-${
-                  (galleryIndex * 100) / galleryImages.length
+                  (galleryIndex * 100) / extendedGalleryImages.length
                 }%, 0, 0)`,
+                transition: galleryTransition
+                  ? "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)"
+                  : "none",
               }}
             >
-              {galleryImages.map((src, index) => (
+              {extendedGalleryImages.map((src, index) => (
                 <article
                   className={styles.galleryCard}
                   key={`${src}-${index}`}
                   style={{
-                    flex: `0 0 ${100 / galleryImages.length}%`,
-                    maxWidth: `${100 / galleryImages.length}%`,
+                    flex: `0 0 ${100 / extendedGalleryImages.length}%`,
+                    maxWidth: `${100 / extendedGalleryImages.length}%`,
                   }}
                 >
                   <img
@@ -248,7 +275,6 @@ return (
                 </article>
               ))}
             </div>
-          </div>
 
           <button
             type="button"

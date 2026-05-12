@@ -171,7 +171,7 @@ export default function MenuPage() {
             </p>
 
             <p className="revealText delay5" data-reveal>
-              hola@javucoffee.com
+              hola@javu.mx
             </p>
 
             <a href={CALL_LINK} className="revealText delay6" data-reveal>
