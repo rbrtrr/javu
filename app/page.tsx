@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Inter, Sora } from "next/font/google";
 import styles from "./page.module.css";
 import Header from "./components/Header";
@@ -35,6 +35,8 @@ const EMAIL = "hola@javu.mx";
 const PHONE = "(686) 433-2364";
 
 export default function HomePage() {
+  const mobileGalleryMaskRef = useRef<HTMLDivElement | null>(null);
+  const mobileGalleryLoopLock = useRef(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSpotCharacter, setActiveSpotCharacter] = useState(0);
@@ -160,6 +162,71 @@ const handleGalleryTransitionEnd = () => {
     };
   }, []);
 
+  useEffect(() => {
+  const mask = mobileGalleryMaskRef.current;
+
+  if (!mask) return;
+
+  const setInitialMobileGalleryPosition = () => {
+    const isMobile = window.matchMedia("(max-width: 860px)").matches;
+
+    if (!isMobile) return;
+
+    const firstCard = mask.querySelector<HTMLElement>("[data-mobile-card]");
+
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.offsetWidth;
+    mask.scrollLeft = cardWidth * visibleCards;
+  };
+
+  const timeout = window.setTimeout(setInitialMobileGalleryPosition, 80);
+
+  window.addEventListener("resize", setInitialMobileGalleryPosition);
+
+  return () => {
+    window.clearTimeout(timeout);
+    window.removeEventListener("resize", setInitialMobileGalleryPosition);
+  };
+}, [visibleCards, extendedGalleryImages.length]);
+
+const handleMobileGalleryScroll = () => {
+  const mask = mobileGalleryMaskRef.current;
+
+  if (!mask || mobileGalleryLoopLock.current) return;
+
+  const isMobile = window.matchMedia("(max-width: 860px)").matches;
+
+  if (!isMobile) return;
+
+  const firstCard = mask.querySelector<HTMLElement>("[data-mobile-card]");
+
+  if (!firstCard) return;
+
+  const cardWidth = firstCard.offsetWidth;
+  const realStart = cardWidth * visibleCards;
+  const realEnd = cardWidth * (visibleCards + galleryImages.length);
+
+  if (mask.scrollLeft >= realEnd) {
+    mobileGalleryLoopLock.current = true;
+    mask.scrollLeft = realStart + (mask.scrollLeft - realEnd);
+
+    window.requestAnimationFrame(() => {
+      mobileGalleryLoopLock.current = false;
+    });
+  }
+
+  if (mask.scrollLeft < realStart) {
+    mobileGalleryLoopLock.current = true;
+    mask.scrollLeft = realEnd - (realStart - mask.scrollLeft);
+
+    window.requestAnimationFrame(() => {
+      mobileGalleryLoopLock.current = false;
+    });
+  }
+};
+
+
 return (
   <main
     className={`${styles.page} ${navFont.variable} ${displayFont.variable} ${
@@ -199,7 +266,7 @@ return (
           </h2>
 
           <p className={styles.revealText} data-reveal>
-            En JAVU nos gusta hacer las cosas simples, pero bien hechas. Café, bebidas
+            En JAVU nos gusta hacer las cosas simples, pero bien hechas. Matcha, café, bebidas
             y un ambiente cómodo para pasar por algo rápido o quedarte un rato.
           </p>
 
@@ -210,7 +277,7 @@ return (
           </p>
 
           <p className={styles.revealText} data-reveal>
-            Nuestra idea es sencilla: buen café, una carta bien pensada y un espacio al
+            Nuestra idea es sencilla: buen matcha, buen café, una carta bien pensada y un espacio al
             que se antoje volver.
           </p>
 
@@ -245,7 +312,11 @@ return (
       ←
     </button>
 
-    <div className={styles.galleryMask}>
+      <div
+        className={styles.galleryMask}
+        ref={mobileGalleryMaskRef}
+        onScroll={handleMobileGalleryScroll}
+      >
       {/* Desktop: carrusel infinito */}
       <div
         className={`${styles.galleryTrack} ${styles.galleryTrackDesktop}`}
@@ -279,21 +350,21 @@ return (
       </div>
 
       {/* Mobile: swipe normal, empieza desde gallery-1 */}
-      <div className={`${styles.galleryTrack} ${styles.galleryTrackMobile}`}>
-        {galleryImages.map((src, index) => (
-          <article
-            className={styles.galleryCard}
-            key={`mobile-${src}-${index}`}
-          >
-            <img
-              src={src}
-              alt={`JAVU gallery ${index + 1}`}
-              className={styles.galleryImage}
-            />
-          </article>
-        ))}
-      </div>
-    </div>
+<div className={`${styles.galleryTrack} ${styles.galleryTrackMobile}`}>
+  {extendedGalleryImages.map((src, index) => (
+    <article
+      className={styles.galleryCard}
+      key={`mobile-${src}-${index}`}
+      data-mobile-card
+    >
+      <img
+        src={src}
+        alt={`JAVU gallery ${index + 1}`}
+        className={styles.galleryImage}
+      />
+    </article>
+  ))}
+</div>
 
     <button
       type="button"
@@ -303,6 +374,7 @@ return (
     >
       →
     </button>
+  </div>
   </div>
 </section>
 
